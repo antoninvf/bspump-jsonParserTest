@@ -6,6 +6,7 @@ import bspump.trigger
 import bspump.kafka
 
 from .processor import ParserProcessor
+from .generator import ParseEventGenerator
 
 class ParserPipeline(bspump.Pipeline):
 
@@ -14,6 +15,7 @@ class ParserPipeline(bspump.Pipeline):
 
         self.build(
             bspump.file.FileJSONSource(app, self).on(bspump.trigger.PeriodicTrigger(app, 5)),
+            ParseEventGenerator(app, self),
             ParserProcessor(app, self),
             bspump.common.PPrintProcessor(app, self),
             bspump.common.StdDictToJsonParser(app, self),

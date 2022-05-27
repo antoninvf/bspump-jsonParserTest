@@ -2,7 +2,6 @@ import bspump
 import bspump.kafka
 
 from .pipeline import ParserPipeline
-from .generator import ParseEventGenerator
 
 
 class ParserService(bspump.BSPumpService):
@@ -18,6 +17,5 @@ class ParserService(bspump.BSPumpService):
         kafka_connection = bspump.kafka.KafkaConnection(app, "KafkaConnection")
         svc.add_connection(kafka_connection)
         svc.add_pipeline(ParserPipeline(app, 'ParserPipeline'))
-        svc.add_generator(ParseEventGenerator(app, 'ParseEventGenerator'))
 
         await svc.initialize(app)
